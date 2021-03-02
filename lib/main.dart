@@ -27,15 +27,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Future<NewsModel> _news;
-  int i = 0;
-
-  @override
-  void initState() {
-    _news = Api_Manager().getNews();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,56 +46,44 @@ class _HomePageState extends State<HomePage> {
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 20),
-          child: FutureBuilder<NewsModel>(
-            future: _news,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                if (i < snapshot.data.articles.length) {
-                  i++;
-                }
-                return Stack(
-                  children: [
-                    IconButton(
-                      icon: Icon(
-                        Icons.notifications,
-                        color: Colors.white,
+          child: Stack(
+            children: [
+              IconButton(
+                icon: Icon(
+                  Icons.notifications,
+                  color: Colors.white,
+                ),
+                onPressed: () {},
+              ),
+              Positioned(
+                right: 0,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.10),
+                        spreadRadius: 2,
+                        blurRadius: 10,
+                        offset: Offset(0, 0),
                       ),
-                      onPressed: () {},
+                    ],
+                  ),
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 7, vertical: 4),
+                    child: Text(
+                      "8",
+                      style: TextStyle(
+                        color: Colors.pink,
+                        fontSize: 10,
+                      ),
                     ),
-                    Positioned(
-                      right: 0,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.10),
-                              spreadRadius: 2,
-                              blurRadius: 10,
-                              offset: Offset(0, 0),
-                            ),
-                          ],
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 7, vertical: 4),
-                          child: Text(
-                            "${i}",
-                            style: TextStyle(
-                              color: Colors.pink,
-                              fontSize: 10,
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                );
-              } else {
-                return null;
-              }
-            },
+                  ),
+                ),
+              )
+            ],
           ),
         ),
       ],
